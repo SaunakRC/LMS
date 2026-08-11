@@ -1,7 +1,10 @@
 package com.proj.testapi.entity;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,47 +12,54 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 
 @Entity
 public class Course {
+
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    private String title;
+	private String title;
 
-    @Column(length = 1000)
-    private String description;
+	@Column(length = 1000)
+	private String description;
 
-    private String category;
+	private String category;
 
-    private Double price;
+	private Double price;
 
-    private int duration;
+	private int duration;
 
-    
-    private LocalDateTime createdAt;
+	private LocalDateTime createdAt;
 
-    private LocalDateTime updatedAt;
+	private LocalDateTime updatedAt;
 
-   
-    @ManyToOne
-    @JoinColumn(name = "instructor_id", nullable = false)
-    private User instructor;
+	@ManyToOne
+	@JoinColumn(name = "instructor_id", nullable = false)
+	private User instructor;
 
-    // Automatically set TimeStamps
-    @PrePersist
-    protected void onCreate() {
-        createdAt = LocalDateTime.now();
-        updatedAt = LocalDateTime.now();
-    }
+	// Course -> Modules
+	@OneToMany(
+			mappedBy = "course",
+			cascade = CascadeType.ALL,
+			orphanRemoval = true
+	)
+	private List<Module> modules = new ArrayList<>();
 
-    @PreUpdate
-    protected void onUpdate() {
-        updatedAt = LocalDateTime.now();
-    }
+	@PrePersist
+	protected void onCreate() {
+		createdAt = LocalDateTime.now();
+		updatedAt = LocalDateTime.now();
+	}
+
+	@PreUpdate
+	protected void onUpdate() {
+		updatedAt = LocalDateTime.now();
+	}
 
 	public Long getId() {
 		return id;
@@ -123,5 +133,11 @@ public class Course {
 		this.instructor = instructor;
 	}
 
-}
+	public List<Module> getModules() {
+		return modules;
+	}
 
+	public void setModules(List<Module> modules) {
+		this.modules = modules;
+	}
+}

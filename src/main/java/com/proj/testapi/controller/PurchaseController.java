@@ -32,7 +32,7 @@ public class PurchaseController {
             @PathVariable Long courseId,
             HttpSession session) {
 
-        User user = (User) session.getAttribute("loginUser");
+        User user = (User) session.getAttribute("user");
 
         if (user == null) {
             throw new RuntimeException("Please login first");
@@ -51,7 +51,7 @@ public class PurchaseController {
     public List<Purchase> myPurchases(
             HttpSession session) {
 
-        User user = (User) session.getAttribute("loginUser");
+        User user = (User) session.getAttribute("user");
 
         if (user == null) {
             throw new RuntimeException("Please login first");
@@ -68,7 +68,7 @@ public class PurchaseController {
             @PathVariable Long courseId,
             HttpSession session) {
 
-        User user = (User) session.getAttribute("loginUser");
+        User user = (User) session.getAttribute("user");
 
         if (user == null) {
             throw new RuntimeException("Please login first");

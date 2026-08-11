@@ -12,7 +12,7 @@ import com.proj.testapi.service.WishlistService;
 import jakarta.servlet.http.HttpSession;
 
 @RestController
-@RequestMapping("/wishlist")
+@RequestMapping("api/wishlist")
 @CrossOrigin(
         origins = "http://localhost:3000",
         allowCredentials = "true"
@@ -28,7 +28,7 @@ public class WishlistController {
             @PathVariable Long courseId,
             HttpSession session) {
 
-        User user = (User) session.getAttribute("loginUser");
+        User user = (User) session.getAttribute("user");
 
         if (user == null) {
             throw new RuntimeException("Please login first");
@@ -44,7 +44,7 @@ public class WishlistController {
     public List<Wishlist> myWishlist(
             HttpSession session) {
 
-        User user = (User) session.getAttribute("loginUser");
+        User user = (User) session.getAttribute("user");
 
         if (user == null) {
             throw new RuntimeException("Please login first");
@@ -61,7 +61,7 @@ public class WishlistController {
             @PathVariable Long courseId,
             HttpSession session) {
 
-        User user = (User) session.getAttribute("loginUser");
+        User user = (User) session.getAttribute("user");
 
         if (user == null) {
             throw new RuntimeException("Please login first");
@@ -81,7 +81,7 @@ public class WishlistController {
             @PathVariable Long courseId,
             HttpSession session) {
 
-        User user = (User) session.getAttribute("loginUser");
+        User user = (User) session.getAttribute("user");
 
         if (user == null) {
             return false;
