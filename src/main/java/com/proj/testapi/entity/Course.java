@@ -29,12 +29,12 @@ public class Course {
 
     private int duration;
 
-    // TimeStamps
+    
     private LocalDateTime createdAt;
 
     private LocalDateTime updatedAt;
 
-    // @ManyToOne(fetch = FetchType.LAZY)
+   
     @ManyToOne
     @JoinColumn(name = "instructor_id", nullable = false)
     private User instructor;
